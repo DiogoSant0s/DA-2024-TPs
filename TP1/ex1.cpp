@@ -4,7 +4,7 @@
 using namespace std;
 template <typename T>
 
-/****************** toposort ********************/
+/****************** topsort ********************/
 /*
  * Performs a topological sorting of the vertices of a graph.
  * Returns a vector with the contents of the vertices by topological order.

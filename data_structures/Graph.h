@@ -22,17 +22,17 @@ template <class T>
 class Vertex {
 	T info;                // contents
 	vector<Edge<T> > adj;  // list of outgoing edges
-	bool visited;          // auxiliary field
-    bool processing;       // auxiliary field
-    int indegree;          // auxiliary field
-    int num;               // auxiliary field
-    int low;               // auxiliary field
+	bool visited{};          // auxiliary field
+    bool processing{};       // auxiliary field
+    int indegree{};          // auxiliary field
+    int num{};               // auxiliary field
+    int low{};               // auxiliary field
 
     void addEdge(Vertex<T> *dest, double w);
 	bool removeEdgeTo(Vertex<T> *d);
 
 public:
-	Vertex(T in);
+	explicit Vertex(T in);
     T getInfo() const;
     void setInfo(T in);
     bool isVisited() const;
@@ -40,14 +40,14 @@ public:
     bool isProcessing() const;
     void setProcessing(bool p);
     int getIndegree() const;
-    void setIndegree(int indegree);
-    void setLow(int low);
-    void setNum(int num);
+    void setIndegree(int i);
+    void setLow(int i);
+    void setNum(int i);
     int getNum() const;
     int getLow() const;
 
     const vector<Edge<T>> &getAdj() const;
-    void setAdj(const vector<Edge<T>> &adj);
+    void setAdj(const vector<Edge<T>> &vector);
     friend class Graph<T>;
 };
 
@@ -60,7 +60,7 @@ public:
     Vertex<T> *getDest() const;
     void setDest(Vertex<T> *dest);
     double getWeight() const;
-    void setWeight(double weight);
+    void setWeight(double w);
     friend class Graph<T>;
 	friend class Vertex<T>;
 };
@@ -74,13 +74,13 @@ public:
     int getNumVertex() const;
 	bool addVertex(const T &in);
 	bool removeVertex(const T &in);
-	bool addEdge(const T &sourc, const T &dest, double w);
-	bool removeEdge(const T &sourc, const T &dest);
+	bool addEdge(const T &source, const T &dest, double w);
+	bool removeEdge(const T &source, const T &dest);
     vector<Vertex<T> * > getVertexSet() const;
 	vector<T> dfs() const;
 	vector<T> dfs(const T & source) const;
 	vector<T> bfs(const T &source) const;
-    void emitDOTFile(string gname);
+    void emitDOTFile(const string& gname);
 
 };
 
@@ -118,13 +118,13 @@ bool Vertex<T>::isProcessing() const {
     return processing;
 }
 template<class T>
-void Vertex<T>::setNum(int num) {
-    Vertex::num = num;
+void Vertex<T>::setNum(int i) {
+    Vertex::num = i;
 }
 
 template<class T>
-void Vertex<T>::setLow(int low) {
-    Vertex::low = low;
+void Vertex<T>::setLow(int i) {
+    Vertex::low = i;
 }
 
 template<class T>
@@ -158,8 +158,8 @@ double Edge<T>::getWeight() const {
 }
 
 template<class T>
-void Edge<T>::setWeight(double weight) {
-    Edge::weight = weight;
+void Edge<T>::setWeight(double w) {
+    Edge::weight = w;
 }
 
 /*
@@ -188,8 +188,8 @@ int Vertex<T>::getIndegree() const {
 }
 
 template<class T>
-void Vertex<T>::setIndegree(int indegree) {
-    Vertex::indegree = indegree;
+void Vertex<T>::setIndegree(int i) {
+    Vertex::indegree = i;
 }
 
 template<class T>
@@ -198,8 +198,8 @@ const vector<Edge<T>> &Vertex<T>::getAdj() const {
 }
 
 template <class T>
-void Vertex<T>::setAdj(const vector<Edge<T>> &adj) {
-    Vertex::adj = adj;
+void Vertex<T>::setAdj(const vector<Edge<T>> &vector) {
+    Vertex::adj = vector;
 }
 
 
@@ -222,8 +222,8 @@ bool Graph<T>::addVertex(const T &in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 template <class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
-	auto v1 = findVertex(sourc);
+bool Graph<T>::addEdge(const T &source, const T &dest, double w) {
+	auto v1 = findVertex(source);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
 		return false;
@@ -243,12 +243,12 @@ void Vertex<T>::addEdge(Vertex<T> *d, double w) {
 
 /*
  * Removes an edge from a graph (this).
- * The edge is identified by the source (sourc) and destination (dest) contents.
+ * The edge is identified by the source (source) and destination (dest) contents.
  * Returns true if successful, and false if such edge does not exist.
  */
 template <class T>
-bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
-	auto v1 = findVertex(sourc);
+bool Graph<T>::removeEdge(const T &source, const T &dest) {
+	auto v1 = findVertex(source);
 	auto v2 = findVertex(dest);
 	if (v1 == NULL || v2 == NULL)
 		return false;
@@ -400,8 +400,8 @@ vector<T> Graph<T>::bfs(const T & source) const {
         myqueue.pop();
 
         res.push_back(v->info);
-        for(auto b : v->adj){
-            auto next_node = b.dest;
+        for(auto c : v->adj){
+            auto next_node = c.dest;
             if(!next_node->visited){
                 myqueue.push(next_node);
                 next_node->visited = true;
@@ -419,7 +419,7 @@ vector<T> Graph<T>::bfs(const T & source) const {
 
 
 template <class T>
-inline void  Graph<T>::emitDOTFile(string gname) {
+inline void  Graph<T>::emitDOTFile(const string& gname) {
     ofstream g_dot_file;
 
     g_dot_file.open (gname+".gv");
