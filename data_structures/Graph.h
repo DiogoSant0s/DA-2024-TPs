@@ -300,20 +300,17 @@ bool Graph<T>::removeVertex(const T &in) {
  * Performs a depth-first search (dfs) traversal in a graph (this).
  * Returns a vector with the contents of the vertices by dfs order.
  */
-// TODO
 template <class T>
 vector<T> Graph<T>::dfs() const {
     vector<T> res;
-    //starting the process, mark each vertex has non visited
-    for(auto v : vertexSet){
+    for (auto v : vertexSet){
         v->visited = false;
     }
-    for(auto v: vertexSet){
-        if(!v->visited){
+    for (auto v: vertexSet){
+        if (!v->visited){
             dfsVisit(v, res);
         }
     }
-
     return res;
 }
 
@@ -321,20 +318,15 @@ vector<T> Graph<T>::dfs() const {
  * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
  * Updates a parameter with the list of visited node contents.
  */
-// TODO
 template <class T>
 void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
-
-    // mark as visited
-    v->visited = true;
-    res.push_back(v->info);
-    for(auto e : v->adj){
-       auto w =  e.dest;
-       if(!w->visited){
-           dfsVisit(w, res);
-       }
-
-
+    v -> setVisited(true);
+    res.push_back(v -> getInfo());
+    for (auto e : v -> getAdj()) {
+        auto w = e.getDest();
+        if (!w -> isVisited()) {
+            dfsVisit(w, res);
+        }
     }
 }
 
@@ -348,27 +340,19 @@ void Graph<T>::dfsVisit(Vertex<T> *v, vector<T> & res) const {
  * Returns a vector with the contents of the vertices by dfs order,
  * from the source node.
  */
-// TODO
 template <class T>
 vector<T> Graph<T>::dfs(const T & source) const {
     vector<T> res;
-
-    auto vbegin = findVertex(source);
-
-    // not exist in the graph
-
-    if(vbegin == nullptr){
+    auto s = findVertex(source);
+    if (s == nullptr) {
         return res;
     }
-
-    for(auto v : vertexSet){
-        v->visited = false;
+    for (auto v : vertexSet) {
+        v -> setVisited(false);
     }
-    dfsVisit(vbegin, res);
-
+    dfsVisit(s, res);
     return res;
 }
-
 
 //=============================================================================
 // Exercise 2: Breadth-First Search
@@ -378,60 +362,44 @@ vector<T> Graph<T>::dfs(const T & source) const {
  * from the vertex with the given source contents (source).
  * Returns a vector with the contents of the vertices by bfs order.
  */
-// TODO
 template <class T>
 vector<T> Graph<T>::bfs(const T & source) const {
-    // HINT: Use the flag "visited".
     vector<T> res;
-    auto b = findVertex(source);
-    queue <Vertex <T> * >  myqueue;
-
-    if(b == nullptr){
+    auto s = findVertex(source);
+    if (s == nullptr) {
         return res;
     }
-    for(auto v : vertexSet){
-        v->visited = false;
+    for (auto v : vertexSet) {
+        v -> setVisited(false);
     }
-    b->visited = true;
-    myqueue.push(b);
-
-    while(!myqueue.empty()){
-        auto v = myqueue.front();
-        myqueue.pop();
-
-        res.push_back(v->info);
-        for(auto c : v->adj){
-            auto next_node = c.dest;
-            if(!next_node->visited){
-                myqueue.push(next_node);
-                next_node->visited = true;
-
+    queue<Vertex<T>> q;
+    q.push(s);
+    s -> setVisited(true);
+    while (!q.empty()) {
+        auto v = q.front();
+        q.pop();
+        res.push_back(v -> getId());
+        for (auto e : v -> getAdj()) {
+            auto w = e -> getDest();
+            if (!w -> isVisited()) {
+                q.push(w);
+                w -> setVisited(true);
             }
-
         }
-
     }
-
-    // HINT: Use the "queue" class to temporarily store the vertices.
-
-	return res;
+    return res;
 }
-
 
 template <class T>
 inline void  Graph<T>::emitDOTFile(const string& gname) {
     ofstream g_dot_file;
-
     g_dot_file.open (gname+".gv");
     g_dot_file << "digraph { \n";
-
-
     g_dot_file << "labelloc  = top;\n";
     g_dot_file << "labeljust = left;\n";
     g_dot_file << "fontname  = calibri;\n";
     g_dot_file << "fontsize  = 16;\n";
     g_dot_file << "\n";
-
     for (auto v : vertexSet) {
         g_dot_file << "  " << v->getInfo() << ";\n";  // Print isolated node
         for (auto & e : v->getAdj()) {
@@ -439,7 +407,6 @@ inline void  Graph<T>::emitDOTFile(const string& gname) {
             g_dot_file << "  " << v->getInfo() << " -> " << w->getInfo() << ";\n";
         }
     }
-
     g_dot_file << "}\n";
     g_dot_file.close();
 }

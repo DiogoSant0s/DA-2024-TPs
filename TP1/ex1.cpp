@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../data_structures/Graph.h"
 
 using namespace std;
@@ -13,6 +12,17 @@ template <typename T>
  */
 vector<T> topsort(const Graph<T>* g) {
     vector<T> res;
-    //TODO
+    vector<T> dfsOrder = g->dfs();
+    reverse(dfsOrder.begin(), dfsOrder.end());
+    for (int i = 0; i < dfsOrder.size(); ++i) {
+        auto v = g->findVertex(dfsOrder[i]);
+        for (auto &e : v->getAdj()) {
+            auto w = e.getDest();
+            if (v->getNum() <= w->getNum()) {
+                return vector<T>();
+            }
+        }
+        res.push_back(dfsOrder[i]);
+    }
     return res;
 }
