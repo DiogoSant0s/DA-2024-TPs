@@ -35,7 +35,7 @@ bool dfsIsDAG(Vertex<T> *v)  {
     v -> setVisited(true);
     v -> setProcessing(true);
     for (auto e : v -> getAdj()) {
-        auto w = e.getDest();
+        auto w = e->getDest();
         if (w -> isProcessing()) {
             return false;
         }

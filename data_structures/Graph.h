@@ -21,7 +21,7 @@ class Edge;
 template <class T>
 class Vertex {
 public:
-    Vertex(T in);
+    explicit Vertex(T in);
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
@@ -34,11 +34,11 @@ public:
     std::vector<Edge<T> *> getIncoming() const;
 
     void setInfo(T info);
-    void setVisited(bool visited);
-    void setProcesssing(bool processing);
-    void setIndegree(unsigned int indegree);
-    void setDist(double dist);
-    void setPath(Edge<T> *path);
+    void setVisited(bool Visited);
+    void setProcessing(bool Processing);
+    void setIndegree(unsigned int Indegree);
+    void setDist(double Dist);
+    void setPath(Edge<T> *Path);
     Edge<T> * addEdge(Vertex<T> *dest, double w);
     bool removeEdge(T in);
     void removeOutgoingEdges();
@@ -51,7 +51,7 @@ protected:
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
-    unsigned int indegree; // used by topsort
+    unsigned int indegree{}; // used by topsort
     double dist = 0;
     Edge<T> *path = nullptr;
 
@@ -76,9 +76,9 @@ public:
     Edge<T> *getReverse() const;
     double getFlow() const;
 
-    void setSelected(bool selected);
-    void setReverse(Edge<T> *reverse);
-    void setFlow(double flow);
+    void setSelected(bool Selected);
+    void setReverse(Edge<T> *Reverse);
+    void setFlow(double Flow);
 protected:
     Vertex<T> * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -90,7 +90,7 @@ protected:
     Vertex<T> *orig;
     Edge<T> *reverse = nullptr;
 
-    double flow; // for flow-related problems
+    double flow{}; // for flow-related problems
 };
 
 /********************** Graph  ****************************/
@@ -115,9 +115,9 @@ public:
      * destination vertices and the edge weight (w).
      * Returns true if successful, and false if the source or destination vertex does not exist.
      */
-    bool addEdge(const T &sourc, const T &dest, double w);
+    bool addEdge(const T &source, const T &dest, double w);
     bool removeEdge(const T &source, const T &dest);
-    bool addBidirectionalEdge(const T &sourc, const T &dest, double w);
+    bool addBidirectionalEdge(const T &source, const T &dest, double w);
 
     int getNumVertex() const;
     std::vector<Vertex<T> *> getVertexSet() const;
@@ -177,7 +177,7 @@ bool Vertex<T>::removeEdge(T in) {
         if (dest->getInfo() == in) {
             it = adj.erase(it);
             deleteEdge(edge);
-            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multi graph)
         }
         else {
             it++;
@@ -250,28 +250,28 @@ void Vertex<T>::setInfo(T in) {
 }
 
 template <class T>
-void Vertex<T>::setVisited(bool visited) {
-    this->visited = visited;
+void Vertex<T>::setVisited(bool Visited) {
+    this->visited = Visited;
 }
 
 template <class T>
-void Vertex<T>::setProcesssing(bool processing) {
-    this->processing = processing;
+void Vertex<T>::setProcessing(bool Processing) {
+    this->processing = Processing;
 }
 
 template <class T>
-void Vertex<T>::setIndegree(unsigned int indegree) {
-    this->indegree = indegree;
+void Vertex<T>::setIndegree(unsigned int Indegree) {
+    this->indegree = Indegree;
 }
 
 template <class T>
-void Vertex<T>::setDist(double dist) {
-    this->dist = dist;
+void Vertex<T>::setDist(double Dist) {
+    this->dist = Dist;
 }
 
 template <class T>
-void Vertex<T>::setPath(Edge<T> *path) {
-    this->path = path;
+void Vertex<T>::setPath(Edge<T> *Path) {
+    this->path = Path;
 }
 
 template <class T>
@@ -326,18 +326,18 @@ double Edge<T>::getFlow() const {
 }
 
 template <class T>
-void Edge<T>::setSelected(bool selected) {
-    this->selected = selected;
+void Edge<T>::setSelected(bool Selected) {
+    this->selected = Selected;
 }
 
 template <class T>
-void Edge<T>::setReverse(Edge<T> *reverse) {
-    this->reverse = reverse;
+void Edge<T>::setReverse(Edge<T> *Reverse) {
+    this->reverse = Reverse;
 }
 
 template <class T>
-void Edge<T>::setFlow(double flow) {
-    this->flow = flow;
+void Edge<T>::setFlow(double Flow) {
+    this->flow = Flow;
 }
 
 /********************** Graph  ****************************/
@@ -370,7 +370,7 @@ template <class T>
 int Graph<T>::findVertexIdx(const T &in) const {
     for (unsigned i = 0; i < vertexSet.size(); i++)
         if (vertexSet[i]->getInfo() == in)
-            return i;
+            return (int) i;
     return -1;
 }
 /*
@@ -413,8 +413,8 @@ bool Graph<T>::removeVertex(const T &in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 template <class T>
-bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
-    auto v1 = findVertex(sourc);
+bool Graph<T>::addEdge(const T &source, const T &dest, double w) {
+    auto v1 = findVertex(source);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
@@ -424,12 +424,12 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 
 /*
  * Removes an edge from a graph (this).
- * The edge is identified by the source (sourc) and destination (dest) contents.
+ * The edge is identified by the source (source) and destination (dest) contents.
  * Returns true if successful, and false if such edge does not exist.
  */
 template <class T>
-bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
-    Vertex<T> * srcVertex = findVertex(sourc);
+bool Graph<T>::removeEdge(const T &source, const T &dest) {
+    Vertex<T> * srcVertex = findVertex(source);
     if (srcVertex == nullptr) {
         return false;
     }
@@ -437,8 +437,8 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 }
 
 template <class T>
-bool Graph<T>::addBidirectionalEdge(const T &sourc, const T &dest, double w) {
-    auto v1 = findVertex(sourc);
+bool Graph<T>::addBidirectionalEdge(const T &source, const T &dest, double w) {
+    auto v1 = findVertex(source);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
         return false;
@@ -556,7 +556,7 @@ template <class T>
 bool Graph<T>::isDAG() const {
     for (auto v : vertexSet) {
         v->setVisited(false);
-        v->setProcesssing(false);
+        v->setProcessing(false);
     }
     for (auto v : vertexSet) {
         if (! v->isVisited()) {
@@ -573,7 +573,7 @@ bool Graph<T>::isDAG() const {
 template <class T>
 bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
     v->setVisited(true);
-    v->setProcesssing(true);
+    v->setProcessing(true);
     for (auto e : v->getAdj()) {
         auto w = e->getDest();
         if (w->isProcessing()) return false;
@@ -581,11 +581,11 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
             if (! dfsIsDAG(w)) return false;
         }
     }
-    v->setProcesssing(false);
+    v->setProcessing(false);
     return true;
 }
 
-/****************** toposort ********************/
+/****************** topsort ********************/
 //=============================================================================
 // Exercise 1: Topological Sorting
 //=============================================================================
@@ -600,7 +600,6 @@ bool Graph<T>::dfsIsDAG(Vertex<T> *v) const {
 template<class T>
 std::vector<T> Graph<T>::topsort() const {
     std::vector<int> res;
-
     for (auto v : vertexSet) {
         v->setIndegree(0);
     }
@@ -610,14 +609,12 @@ std::vector<T> Graph<T>::topsort() const {
             e->getDest()->setIndegree(indegree + 1);
         }
     }
-
     std::queue<Vertex<T> *> q;
     for (auto v : vertexSet) {
         if (v->getIndegree() == 0) {
             q.push(v);
         }
     }
-
     while( !q.empty() ) {
         Vertex<T> * v = q.front();
         q.pop();
@@ -630,13 +627,11 @@ std::vector<T> Graph<T>::topsort() const {
             }
         }
     }
-
-    if ( res.size() != vertexSet.size() ) {
-        //std::cout << "Impossible topological ordering!" << std::endl;
+    if (res.size() != vertexSet.size()) {
+        std::cout << "Impossible topological ordering!" << std::endl;
         res.clear();
         return res;
     }
-
     return res;
 }
 

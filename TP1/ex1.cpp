@@ -11,18 +11,38 @@ template <typename T>
  * Follows the algorithm described in theoretical classes.
  */
 vector<T> topsort(const Graph<T>* g) {
-    vector<T> res;
-    vector<T> dfsOrder = g->dfs();
-    reverse(dfsOrder.begin(), dfsOrder.end());
-    for (int i = 0; i < dfsOrder.size(); ++i) {
-        auto v = g->findVertex(dfsOrder[i]);
-        for (auto &e : v->getAdj()) {
-            auto w = e.getDest();
-            if (v->getNum() <= w->getNum()) {
-                return vector<T>();
+    vector<int> res;
+    for (auto v : g->getVertexSet()) {
+        v->setIndegree(0);
+    }
+    for (auto v : g->getVertexSet()) {
+        for (auto e : v->getAdj()) {
+            unsigned int indegree = e->getDest()->getIndegree();
+            e->getDest()->setIndegree(indegree + 1);
+        }
+    }
+    queue<Vertex<T>*> q;
+    for (auto v : g->getVertexSet()) {
+        if (v->getIndegree() == 0) {
+            q.push(v);
+        }
+    }
+    while(!q.empty()) {
+        Vertex<T> * v = q.front();
+        q.pop();
+        res.push_back(v->getInfo());
+        for(auto e : v->getAdj()) {
+            auto w = e->getDest();
+            w->setIndegree(w->getIndegree() - 1);
+            if(w->getIndegree() == 0) {
+                q.push(w);
             }
         }
-        res.push_back(dfsOrder[i]);
+    }
+    if (res.size() != g->getVertexSet().size()) {
+        std::cout << "Impossible topological ordering!" << std::endl;
+        res.clear();
+        return res;
     }
     return res;
 }

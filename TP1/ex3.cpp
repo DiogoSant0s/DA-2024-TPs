@@ -15,7 +15,7 @@ vector<vector<T>> SCCkosaraju(Graph<T>* g)  {
     for (auto v : g->getVertexSet()) {
         v -> setVisited(false);
     }
-    stack<Vertex<T>*> vertexStack;
+    stack<Vertex<T>*>* vertexStack;
     for (auto v : g->getVertexSet()) {
         if (!v -> isVisited()) {
             firstDFSKosarajuSharir(v, vertexStack);
@@ -24,9 +24,9 @@ vector<vector<T>> SCCkosaraju(Graph<T>* g)  {
     for (auto v : g->getVertexSet()) {
         v -> setVisited(false);
     }
-    while (!vertexStack.empty()) {
-        Vertex<T>* v = vertexStack.top();
-        vertexStack.pop();
+    while (!vertexStack->empty()) {
+        Vertex<T>* v = vertexStack->top();
+        vertexStack->pop();
         if (!v-> isVisited()) {
             vector<int> scc;
             secondDFSKosarajuSharir(v, scc);
@@ -43,7 +43,7 @@ void firstDFSKosarajuSharir(Vertex<T> *v, stack<Vertex<T>*> *vertexStack)  {
     for (auto e : v -> getAdj()) {
         auto w = e -> getDest();
         if(!w -> isVisited()) {
-            firstDfsKosarajuSharir(w, vertexStack);
+            firstDFSKosarajuSharir(w, vertexStack);
         }
     }
     vertexStack->push(v);
@@ -53,11 +53,11 @@ void firstDFSKosarajuSharir(Vertex<T> *v, stack<Vertex<T>*> *vertexStack)  {
 template <typename T>
 void secondDFSKosarajuSharir(Vertex<T> *v, vector<int> & res)  {
     v -> setVisited(true);
-    res.push_back(v->getId());
+    res.push_back(v->getInfo());
     for (auto& e : v -> getIncoming()) {
         auto w = e -> getOrig();
         if (!w -> isVisited()) {
-            secondDfsKosarajuSharir(w, res);
+            secondDFSKosarajuSharir(w, res);
         }
     }
 }
