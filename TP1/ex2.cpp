@@ -25,7 +25,6 @@ bool isDAG(const Graph<T>* g)  {
     }
     return true;
 }
-
 /**
  * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
  * Returns false (not acyclic) if an edge to a vertex in the stack is found.

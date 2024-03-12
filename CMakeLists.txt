@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 project(da2324_p02_student)
 project(da2324_p01_student)
 project(da2324_p03_student)
+project(da2324_p04_sol)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -47,3 +48,16 @@ add_executable(da2324_p03_student
 )
 
 target_link_libraries(da2324_p03_student gtest gtest_main)
+
+add_executable(da2324_p04_sol
+        TP4/ex1.cpp
+        TP4/ex2.cpp
+        TP4/ex3.cpp
+        TP4/ex4.cpp
+        TP4/ex5.cpp
+        TP4/ex6.cpp
+        TP4/ex9.cpp
+        running_examples/closest_point_pair/ClosestPointPair.cpp
+)
+
+target_link_libraries(da2324_p04_sol gtest gtest_main)

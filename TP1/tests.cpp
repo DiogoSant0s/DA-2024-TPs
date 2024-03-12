@@ -75,7 +75,7 @@ TEST(TP1_Ex3, test_SCC_kosaraju) {
     graph.addEdge(6,7,0);
     graph.addEdge(6,4,0);
 
-    vector<vector<int>> sccs =SCCkosaraju(& graph);
+    vector<vector<int>> sccs = SCCkosaraju(& graph);
 
     EXPECT_EQ(sccs.size(), 4);
 
