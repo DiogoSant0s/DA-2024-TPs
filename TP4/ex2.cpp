@@ -1,8 +1,8 @@
-
 #include "exercises.h"
 
 std::vector<int> mysteryFunc(const std::vector<int> &A) {
-// TODO
+    // TODO
+    return {};
 }
 
 /// TESTS ///

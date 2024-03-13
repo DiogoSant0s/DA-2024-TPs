@@ -1,10 +1,9 @@
-
-
 #include <cmath>
 #include "exercises.h"
 
 int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j) {
 	// TODO
+    return 0;
 }
 
 /// TESTS ///

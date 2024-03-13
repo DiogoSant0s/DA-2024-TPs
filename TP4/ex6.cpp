@@ -1,13 +1,11 @@
-
 #include "exercises.h"
-
 #include <limits>
 #include <algorithm>
 #include <cmath>
 
-
 Result nearestPointsDC(std::vector<Point> &vp) {
-//TODO
+    //TODO
+    return {};
 }
 
 /// TESTS ///

@@ -1,9 +1,9 @@
-
 #include <cmath>
 #include "exercises.h"
 
 double bisection(double x1, double x2, double err, double(*f)(double)) {
 	// TODO
+    return 0;
 }
 
 /// TESTS ///

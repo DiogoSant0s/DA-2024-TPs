@@ -59,7 +59,6 @@ TEST(TP2_Ex3, testKnapsack_4items) {
         EXPECT_EQ(usedItems[2], true);
         EXPECT_EQ(usedItems[3], true);
     }
-
     {
         unsigned int values[n] = {3, 4, 5, 6};
         unsigned int weights[n] = {2, 3, 4, 5};

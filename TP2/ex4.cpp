@@ -47,7 +47,7 @@ TEST(TP2_Ex4, testFractionalKnapsack_3items) {
         EXPECT_NEAR(fractionalKnapsack(values, weights, n, 50, usedItems), 240.0, 0.00001);
         EXPECT_NEAR(usedItems[0], 1.0, 0.00001);
         EXPECT_NEAR(usedItems[1], 1.0, 0.00001);
-        EXPECT_NEAR(usedItems[2], 2.0/3.0, 0.00001);
+        EXPECT_NEAR(usedItems[2], 2.0 / 3.0, 0.00001);
     }
 }
 
@@ -58,9 +58,9 @@ TEST(TP2_Ex4, testFractionalKnapsack_7items) {
         unsigned int weights[n] = {2, 3, 5, 7, 1, 4, 1};
         double usedItems[n];
 
-        EXPECT_NEAR(fractionalKnapsack(values, weights, n, 15, usedItems), 52.0 + 10.0/3.0, 0.00001);
+        EXPECT_NEAR(fractionalKnapsack(values, weights, n, 15, usedItems), 52.0 + 10.0 / 3.0, 0.00001);
         EXPECT_NEAR(usedItems[0], 1.0, 0.00001);
-        EXPECT_NEAR(usedItems[1], 2.0/3.0, 0.00001);
+        EXPECT_NEAR(usedItems[1], 2.0 / 3.0, 0.00001);
         EXPECT_NEAR(usedItems[2], 1.0, 0.00001);
         EXPECT_NEAR(usedItems[3], 0.0, 0.00001);
         EXPECT_NEAR(usedItems[4], 1.0, 0.00001);

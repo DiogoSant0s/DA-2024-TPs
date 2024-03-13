@@ -58,17 +58,15 @@ std::vector<Vertex<T> *> prim(Graph<T> * g) {
 TEST(TP3_Ex2, test_prim) {
     Graph<int> graph = createMSTTestGraph<int>();
     std::vector<Vertex<int> *> res = prim(&graph);
-
     std::stringstream ss;
-    for(const auto v : res) {
+    for (const auto v : res) {
         ss << v->getInfo() << "<-";
-        if ( v->getPath() != nullptr ) {
+        if (v->getPath() != nullptr) {
             ss << v->getPath()->getOrig()->getInfo();
         }
         ss << "|";
     }
     std::cout << ss.str() << std::endl;
-
     EXPECT_TRUE(isSpanningTree(res));
     EXPECT_EQ(spanningTreeCost(res), 11);
 }

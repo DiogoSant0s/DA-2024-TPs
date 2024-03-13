@@ -25,38 +25,41 @@ public:
     bool operator<(Vertex<T> & vertex) const; // // required by MutablePriorityQueue
 
     T getInfo() const;
-    std::vector<Edge<T> *> getAdj() const;
+    std::vector<Edge<T>*> getAdj() const;
     bool isVisited() const;
     bool isProcessing() const;
     unsigned int getIndegree() const;
     double getDist() const;
-    Edge<T> *getPath() const;
-    std::vector<Edge<T> *> getIncoming() const;
+    Edge<T>* getPath() const;
+    std::vector<Edge<T>*> getIncoming() const;
 
     void setInfo(T info);
     void setVisited(bool Visited);
     void setProcessing(bool Processing);
     void setIndegree(unsigned int Indegree);
+    void setLow(int low);
+    void setNum(int num);
+    int getNum() const;
+    int getLow() const;
     void setDist(double Dist);
     void setPath(Edge<T> *Path);
-    Edge<T> * addEdge(Vertex<T> *dest, double w);
+    Edge<T>* addEdge(Vertex<T> *dest, double w);
     bool removeEdge(T in);
     void removeOutgoingEdges();
 
     friend class MutablePriorityQueue<Vertex>;
 protected:
-    T info;                // info node
-    std::vector<Edge<T> *> adj;  // outgoing edges
-
+    T info;                     // info node
+    std::vector<Edge<T>*> adj; // outgoing edges
+    std::vector<Edge<T>*> incoming; // incoming edges
     // auxiliary fields
-    bool visited = false; // used by DFS, BFS, Prim ...
-    bool processing = false; // used by isDAG (in addition to the visited attribute)
-    unsigned int indegree{}; // used by topsort
+    bool visited = false;       // used by DFS, BFS, Prim ...
+    bool processing = false;    // used by isDAG (in addition to the visited attribute)
+    unsigned int indegree{};    // used by topsort
+    int num{};                    // used by SCC
+    int low{};                    // used by SCC
     double dist = 0;
     Edge<T> *path = nullptr;
-
-    std::vector<Edge<T> *> incoming; // incoming edges
-
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
 
     void deleteEdge(Edge<T> *edge);
@@ -69,18 +72,18 @@ class Edge {
 public:
     Edge(Vertex<T> *orig, Vertex<T> *dest, double w);
 
-    Vertex<T> * getDest() const;
+    Vertex<T>* getDest() const;
     double getWeight() const;
     bool isSelected() const;
-    Vertex<T> * getOrig() const;
-    Edge<T> *getReverse() const;
+    Vertex<T>* getOrig() const;
+    Edge<T>* getReverse() const;
     double getFlow() const;
 
     void setSelected(bool Selected);
     void setReverse(Edge<T> *Reverse);
     void setFlow(double Flow);
 protected:
-    Vertex<T> * dest; // destination vertex
+    Vertex<T>* dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
 
     // auxiliary fields
@@ -239,6 +242,15 @@ Edge<T> *Vertex<T>::getPath() const {
     return this->path;
 }
 
+template<class T>
+int Vertex<T>::getNum() const {
+    return num;
+}
+
+template<class T>
+int Vertex<T>::getLow() const {
+    return low;
+}
 template <class T>
 std::vector<Edge<T> *> Vertex<T>::getIncoming() const {
     return this->incoming;
@@ -272,6 +284,16 @@ void Vertex<T>::setDist(double Dist) {
 template <class T>
 void Vertex<T>::setPath(Edge<T> *Path) {
     this->path = Path;
+}
+
+template<class T>
+void Vertex<T>::setNum(int Num) {
+    Vertex::num = Num;
+}
+
+template<class T>
+void Vertex<T>::setLow(int Low) {
+    Vertex::low = Low;
 }
 
 template <class T>
