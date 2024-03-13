@@ -2,8 +2,28 @@
 // With contributions by Eduardo Almeida
 
 int maxSubsequence(int A[], unsigned int n, unsigned int &i, unsigned int &j) {
-    // TODO
-    return 0;
+    bool firstSum = true;
+    int maxSum;
+    for(unsigned int a = 0; a < n; a++) {
+        for(unsigned int b = a; b < n; b++) {
+            int sum = 0;
+            for(unsigned int c = a; c <= b; c++) {
+                sum += A[c];
+            }
+            if(firstSum) {
+                firstSum = false;
+                maxSum = sum;
+                i = a;
+                j = b;
+            }
+            else if(sum > maxSum) {
+                maxSum = sum;
+                i = a;
+                j = b;
+            }
+        }
+    }
+    return maxSum;
 }
 
 /// TESTS ///
