@@ -129,8 +129,6 @@ void testNearestPoints(NP_FUNC func, std::string alg) {
         return;
     if (testNPFile("Pontos1k", 100.603, func, alg) > maxTime)
         return;
-    /*
-    // Uncomment to use more tests
     if (testNPFile("Pontos16k", 13.0384, func, alg) > maxTime)
         return;
     if (testNPFile("Pontos32k", 1.0, func, alg) > maxTime)
@@ -139,6 +137,7 @@ void testNearestPoints(NP_FUNC func, std::string alg) {
         return;
     if (testNPFile("Pontos128k", 0.0, func, alg) > maxTime)
         return;
+    /*
     if (testNPRand(0x40000, "Pontos256k", 1.0, func, alg) > maxTime)
         return;
     if (testNPRand(0x80000, "Pontos512k",  1.0, func, alg) > maxTime)

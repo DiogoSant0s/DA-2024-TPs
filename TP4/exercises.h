@@ -7,7 +7,7 @@
 #include <string>
 
 // Ex 1
-int maxSubsequenceDC(int A[], unsigned int n, int &i, int &j);
+int maxSubsequenceDC(const int A[], unsigned int n, int &i, int &j);
 
 // Ex 2
 std::vector<int> mysteryFunc(const std::vector<int> &A);

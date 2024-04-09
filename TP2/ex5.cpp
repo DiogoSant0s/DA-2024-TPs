@@ -1,6 +1,6 @@
 // By: Gonçalo Leão
 
-bool changeMakingBF(unsigned int C[], const unsigned int Stock[], unsigned int n, unsigned int T, unsigned int usedCoins[]) {
+bool changeMakingBF(const unsigned int C[], const unsigned int Stock[], unsigned int n, unsigned int T, unsigned int usedCoins[]) {
     // Static memory allocation is used since it's faster but this assumes there are at most 20 coin values (n <= 20).
     unsigned int curCandidate[20]; // current solution candidate being built
     // Prepare the first candidate

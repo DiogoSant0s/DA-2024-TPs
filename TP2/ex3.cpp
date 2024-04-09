@@ -1,6 +1,6 @@
 // By: Gonçalo Leão
 
-unsigned int integerKnapsack(unsigned int values[], unsigned int weights[], unsigned int n, unsigned int maxWeight, bool usedItems[]) {
+unsigned int integerKnapsack(const unsigned int values[], const unsigned int weights[], unsigned int n, unsigned int maxWeight, bool usedItems[]) {
     // Static memory allocation is used since it's faster but this assumes there are at most 20 items (n <= 20).
     bool curCandidate[20]; // current solution candidate being built
     // Prepare the first candidate

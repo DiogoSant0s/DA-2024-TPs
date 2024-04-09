@@ -1,6 +1,6 @@
 // By: Gonçalo Leão
 
-bool subsetSum(unsigned int A[], unsigned int n, unsigned int T, unsigned int subset[], unsigned int &subsetSize) {
+bool subsetSum(const unsigned int A[], unsigned int n, unsigned int T, unsigned int subset[], unsigned int &subsetSize) {
     // Static memory allocation is used since it's faster but this assumes there are at most 20 values in the subset (n <= 100).
     bool curCandidate[20]; // current solution candidate being built
     // Prepare the first candidate
@@ -31,7 +31,7 @@ bool subsetSum(unsigned int A[], unsigned int n, unsigned int T, unsigned int su
             if (curIndex == n) break;
         }
         if (curIndex == n) break;
-        // Set the boolean of the higher positions in A in the candidate solution back to 0.
+        // Set the bool of the higher positions in A in the candidate solution back to 0.
         // Example: 1 1 0 1 -> 0 0 1 1.
         // Enumeration of the 8 candidates for an array of length 3:
         // 0 0 0 -> 1 0 0 -> 0 1 0 -> 1 1 0 -> 0 0 1 -> 1 0 1 -> 0 1 1 -> 1 1 1
