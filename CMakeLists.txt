@@ -11,10 +11,24 @@ include_directories(lib/googletest/googlemock/include)
 include_directories(TP1)
 include_directories(TP2)
 include_directories(TP3)
+include_directories(TP4)
+include_directories(TP5)
+include_directories(TP7)
 
 set( CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE_TMP} )
 
 add_executable(DA-2024-TPs
+        TP7/exercises.h
+        TP7/ex8.cpp
+        TP7/ex7.cpp
+        TP7/ex6.cpp
+        TP7/ex5.cpp
+        TP7/ex4.cpp
+        TP7/ex1.cpp
+        TP5/testAux.h
+        TP5/ex3.cpp
+        TP5/ex2.cpp
+        TP5/ex1.cpp
         TP4/ex9.cpp
         TP4/ex6.cpp
         TP4/ex5.cpp
@@ -35,9 +49,10 @@ add_executable(DA-2024-TPs
         TP1/ex3.cpp
         TP1/ex2.cpp
         TP1/ex1.cpp
+        data_structures/Graph.h
+        data_structures/Heap.cpp
         data_structures/MutablePriorityQueue.h
         data_structures/UFDS.cpp
-        data_structures/UFDS.h
         TP3/MSTTestAux.h
         running_examples/closest_point_pair/ClosestPointPair.cpp
 )

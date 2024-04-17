@@ -47,6 +47,10 @@ public:
     bool removeEdge(T in);
     void removeOutgoingEdges();
 
+    bool operator>=(const Vertex& other) const {
+        return this->dist >= other.dist;
+    }
+
     friend class MutablePriorityQueue<Vertex>;
 protected:
     T info;                     // info node
