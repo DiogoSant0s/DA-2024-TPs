@@ -10,7 +10,7 @@ bool subsetSumBT(unsigned int A[], unsigned int n, unsigned int T, unsigned int 
 /// TESTS ///
 #include <gtest/gtest.h>
 
-unsigned int sum(const unsigned int A[], unsigned int n) {
+unsigned int sum2(const unsigned int A[], unsigned int n) {
     unsigned int sum = 0;
     for (unsigned int i = 0; i < n; i++) {
         sum += A[i];
@@ -19,7 +19,7 @@ unsigned int sum(const unsigned int A[], unsigned int n) {
 }
 
 // Checks if A is a subset of B
-bool isSubset(const unsigned int A[], unsigned int nA, unsigned int B[], unsigned int nB) {
+bool isSubset2(const unsigned int A[], unsigned int nA, unsigned int B[], unsigned int nB) {
     for (unsigned int i = 0; i < nA; i++) {
         bool foundNum = false;
         for (unsigned int j = 0; j < nB; j++) {
@@ -41,13 +41,13 @@ TEST(TP7_Ex5, testSubsetSum) {
     unsigned int T = 9;
 
     EXPECT_EQ(subsetSumBT(A, 6, T, subset, subsetSize), true);
-    EXPECT_EQ(sum(subset, subsetSize), T);
-    EXPECT_EQ(isSubset(subset, subsetSize, A, 6), true);
+    EXPECT_EQ(sum2(subset, subsetSize), T);
+    EXPECT_EQ(isSubset2(subset, subsetSize, A, 6), true);
 
     T = 20;
     EXPECT_EQ(subsetSumBT(A,6,T,subset,subsetSize), true);
-    EXPECT_EQ(sum(subset, subsetSize), T);
-    EXPECT_EQ(isSubset(subset, subsetSize, A, 6), true);
+    EXPECT_EQ(sum2(subset, subsetSize), T);
+    EXPECT_EQ(isSubset2(subset, subsetSize, A, 6), true);
 
     T = 30;
     EXPECT_EQ(subsetSumBT(A, 6, T, subset, subsetSize), false);

@@ -2,20 +2,17 @@
 #define TEST_AUX_H_
 
 #include <gtest/gtest.h>
-
 #include <sstream>
 #include <random>
 #include <ctime>
 #include <chrono>
 #include "../data_structures/Graph.h"
-
 #include "exercises.h"
 
 /**
  * Auxiliary functions to tests...
  *
  */
-
 
 template <class T>
 DPGraph<T> CreateTestGraph() {
